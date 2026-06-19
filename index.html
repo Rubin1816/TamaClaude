@@ -1,1 +1,260 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mein Baum 🌱</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+ 
+  <!-- Sky background layers -->
+  <div class="sky" id="sky">
+    <div class="sky-gradient" id="skyGradient"></div>
+    <div class="celestial-body" id="celestialBody"></div>
+    <div class="stars" id="stars"></div>
+    <div class="clouds" id="clouds">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+    </div>
+  </div>
+ 
+  <!-- Ground -->
+  <div class="ground">
+    <div class="ground-top"></div>
+  </div>
+ 
+  <!-- Main App -->
+  <div class="app-container">
+ 
+    <!-- Header -->
+    <header class="app-header">
+      <div class="time-display" id="timeDisplay">00:00</div>
+      <h1 class="app-title">Mein Baum</h1>
+      <div class="day-counter" id="dayCounter">Tag 1</div>
+    </header>
+ 
+    <!-- Tree Scene -->
+    <div class="tree-scene" id="treeScene">
+      <svg class="tree-svg" id="treeSvg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+        <!-- Pot (for seedling stage) -->
+        <g id="potGroup" opacity="1">
+          <rect id="pot" x="165" y="360" width="70" height="50" rx="8" fill="#8B5E3C" />
+          <rect id="potRim" x="158" y="355" width="84" height="14" rx="6" fill="#A0734E" />
+          <rect id="soil" x="168" y="358" width="64" height="10" rx="4" fill="#5d3a1a" />
+        </g>
+ 
+        <!-- Trunk -->
+        <g id="trunkGroup">
+          <path id="trunk" d="M200 360 Q195 300 198 240 Q196 200 200 160" stroke="#6B4226" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <path id="trunkTexture" d="M199 330 Q197 310 199 290 M200 270 Q198 250 200 230" stroke="#5a3820" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+        </g>
+ 
+        <!-- Branches -->
+        <g id="branchGroup" opacity="0">
+          <path id="branch-left-1" d="M198 260 Q170 240 145 230" stroke="#6B4226" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path id="branch-right-1" d="M199 240 Q225 218 252 210" stroke="#6B4226" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path id="branch-left-2" d="M198 210 Q168 195 140 185" stroke="#6B4226" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path id="branch-right-2" d="M199 195 Q228 178 258 170" stroke="#6B4226" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path id="branch-top-left" d="M199 175 Q180 155 162 148" stroke="#6B4226" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path id="branch-top-right" d="M200 170 Q218 150 236 143" stroke="#6B4226" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+ 
+        <!-- Leaves / Canopy -->
+        <g id="canopyGroup" opacity="0">
+          <!-- Main canopy clusters -->
+          <ellipse id="canopy-main" cx="200" cy="155" rx="80" ry="65" fill="#2d6a2d"/>
+          <ellipse id="canopy-left" cx="148" cy="185" rx="55" ry="42" fill="#2d7a2d"/>
+          <ellipse id="canopy-right" cx="252" cy="178" rx="55" ry="42" fill="#2d7a2d"/>
+          <ellipse id="canopy-top" cx="200" cy="115" rx="55" ry="45" fill="#339933"/>
+          <ellipse id="canopy-left-top" cx="162" cy="142" rx="38" ry="32" fill="#33aa33"/>
+          <ellipse id="canopy-right-top" cx="238" cy="137" rx="38" ry="32" fill="#33aa33"/>
+          <!-- Highlight -->
+          <ellipse id="canopy-highlight" cx="185" cy="108" rx="28" ry="22" fill="#44bb44" opacity="0.6"/>
+        </g>
+ 
+        <!-- Blossoms -->
+        <g id="blossomGroup" opacity="0">
+          <g class="blossom" transform="translate(155, 150)">
+            <circle class="petal" cx="0" cy="-8" r="6" fill="#ffb3c6"/>
+            <circle class="petal" cx="7" cy="-3" r="6" fill="#ffb3c6"/>
+            <circle class="petal" cx="7" cy="5" r="6" fill="#ffb3c6"/>
+            <circle class="petal" cx="0" cy="8" r="6" fill="#ffb3c6"/>
+            <circle class="petal" cx="-7" cy="5" r="6" fill="#ffb3c6"/>
+            <circle class="petal" cx="-7" cy="-3" r="6" fill="#ffb3c6"/>
+            <circle class="center" cx="0" cy="0" r="5" fill="#ffe066"/>
+          </g>
+          <g class="blossom" transform="translate(240, 143)">
+            <circle class="petal" cx="0" cy="-7" r="5.5" fill="#ffc0d0"/>
+            <circle class="petal" cx="6" cy="-3" r="5.5" fill="#ffc0d0"/>
+            <circle class="petal" cx="6" cy="4" r="5.5" fill="#ffc0d0"/>
+            <circle class="petal" cx="0" cy="7" r="5.5" fill="#ffc0d0"/>
+            <circle class="petal" cx="-6" cy="4" r="5.5" fill="#ffc0d0"/>
+            <circle class="petal" cx="-6" cy="-3" r="5.5" fill="#ffc0d0"/>
+            <circle class="center" cx="0" cy="0" r="4.5" fill="#ffe066"/>
+          </g>
+          <g class="blossom" transform="translate(193, 118)">
+            <circle class="petal" cx="0" cy="-7" r="5" fill="#ffadc2"/>
+            <circle class="petal" cx="6" cy="-2" r="5" fill="#ffadc2"/>
+            <circle class="petal" cx="6" cy="5" r="5" fill="#ffadc2"/>
+            <circle class="petal" cx="0" cy="7" r="5" fill="#ffadc2"/>
+            <circle class="petal" cx="-6" cy="5" r="5" fill="#ffadc2"/>
+            <circle class="petal" cx="-6" cy="-2" r="5" fill="#ffadc2"/>
+            <circle class="center" cx="0" cy="0" r="4" fill="#ffe066"/>
+          </g>
+          <g class="blossom" transform="translate(170, 128)">
+            <circle class="petal" cx="0" cy="-6" r="4.5" fill="#ffb3c6"/>
+            <circle class="petal" cx="5" cy="-2" r="4.5" fill="#ffb3c6"/>
+            <circle class="petal" cx="5" cy="4" r="4.5" fill="#ffb3c6"/>
+            <circle class="petal" cx="0" cy="6" r="4.5" fill="#ffb3c6"/>
+            <circle class="petal" cx="-5" cy="4" r="4.5" fill="#ffb3c6"/>
+            <circle class="petal" cx="-5" cy="-2" r="4.5" fill="#ffb3c6"/>
+            <circle class="center" cx="0" cy="0" r="3.5" fill="#ffe066"/>
+          </g>
+          <g class="blossom" transform="translate(222, 160)">
+            <circle class="petal" cx="0" cy="-6" r="4.5" fill="#ffc8d8"/>
+            <circle class="petal" cx="5" cy="-2" r="4.5" fill="#ffc8d8"/>
+            <circle class="petal" cx="5" cy="4" r="4.5" fill="#ffc8d8"/>
+            <circle class="petal" cx="0" cy="6" r="4.5" fill="#ffc8d8"/>
+            <circle class="petal" cx="-5" cy="4" r="4.5" fill="#ffc8d8"/>
+            <circle class="petal" cx="-5" cy="-2" r="4.5" fill="#ffc8d8"/>
+            <circle class="center" cx="0" cy="0" r="3.5" fill="#ffe066"/>
+          </g>
+        </g>
+ 
+        <!-- Fruits (apples) -->
+        <g id="fruitGroup" opacity="0">
+          <g class="fruit" transform="translate(155, 178)">
+            <circle r="10" fill="#e63946"/>
+            <path d="M0,-10 Q3,-16 6,-12" stroke="#6B4226" stroke-width="1.5" fill="none"/>
+            <ellipse cx="-3" cy="-5" rx="3" ry="5" fill="#ff6b6b" opacity="0.5"/>
+          </g>
+          <g class="fruit" transform="translate(245, 170)">
+            <circle r="11" fill="#d62828"/>
+            <path d="M0,-11 Q3,-17 6,-13" stroke="#6B4226" stroke-width="1.5" fill="none"/>
+            <ellipse cx="-3" cy="-5" rx="3" ry="5" fill="#ff6b6b" opacity="0.5"/>
+          </g>
+          <g class="fruit" transform="translate(185, 155)">
+            <circle r="9" fill="#e63946"/>
+            <path d="M0,-9 Q3,-15 6,-11" stroke="#6B4226" stroke-width="1.5" fill="none"/>
+            <ellipse cx="-3" cy="-4" rx="2.5" ry="4.5" fill="#ff6b6b" opacity="0.5"/>
+          </g>
+          <g class="fruit" transform="translate(220, 148)">
+            <circle r="10" fill="#c1121f"/>
+            <path d="M0,-10 Q3,-16 6,-12" stroke="#6B4226" stroke-width="1.5" fill="none"/>
+            <ellipse cx="-3" cy="-5" rx="3" ry="5" fill="#ff6b6b" opacity="0.5"/>
+          </g>
+          <g class="fruit" transform="translate(200, 135)">
+            <circle r="9" fill="#e63946"/>
+            <path d="M0,-9 Q3,-15 6,-11" stroke="#6B4226" stroke-width="1.5" fill="none"/>
+            <ellipse cx="-3" cy="-4" rx="2.5" ry="4.5" fill="#ff6b6b" opacity="0.5"/>
+          </g>
+        </g>
+ 
+        <!-- Dead tree overlay -->
+        <g id="deadGroup" opacity="0">
+          <path d="M200 360 Q195 300 198 240 Q196 200 200 160" stroke="#4a3520" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <path d="M198 260 Q170 240 145 230" stroke="#4a3520" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M199 240 Q225 218 252 210" stroke="#4a3520" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M198 210 Q168 195 140 185" stroke="#4a3520" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M199 195 Q228 178 258 170" stroke="#4a3520" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- Dead leaves scattered -->
+          <ellipse cx="155" cy="220" rx="12" ry="8" fill="#7a5c2a" transform="rotate(-20,155,220)" opacity="0.8"/>
+          <ellipse cx="250" cy="195" rx="10" ry="7" fill="#7a5c2a" transform="rotate(15,250,195)" opacity="0.8"/>
+          <ellipse cx="175" cy="310" rx="11" ry="7" fill="#8a6030" transform="rotate(-30,175,310)" opacity="0.7"/>
+        </g>
+ 
+        <!-- Seedling (always visible at start) -->
+        <g id="seedlingGroup">
+          <path d="M200 360 Q199 340 200 320" stroke="#5a8a3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <ellipse cx="200" cy="310" rx="18" ry="12" fill="#4caf50" transform="rotate(-10,200,310)"/>
+          <ellipse cx="190" cy="320" rx="14" ry="9" fill="#66bb6a" transform="rotate(15,190,320)"/>
+          <ellipse cx="210" cy="318" rx="12" ry="8" fill="#81c784" transform="rotate(-20,210,318)"/>
+        </g>
+ 
+        <!-- Watering animation drops -->
+        <g id="waterDrops" opacity="0">
+          <circle class="water-drop" cx="200" cy="300" r="4" fill="#64b5f6"/>
+          <circle class="water-drop" cx="188" cy="320" r="3" fill="#64b5f6"/>
+          <circle class="water-drop" cx="212" cy="315" r="3.5" fill="#64b5f6"/>
+          <circle class="water-drop" cx="195" cy="340" r="3" fill="#90caf9"/>
+        </g>
+      </svg>
+ 
+      <!-- Fallen petals -->
+      <div class="fallen-petals" id="fallenPetals"></div>
+    </div>
+ 
+    <!-- Status Panel -->
+    <div class="status-panel" id="statusPanel">
+      <div class="status-row">
+        <div class="status-item">
+          <span class="status-icon">💧</span>
+          <div class="status-info">
+            <span class="status-label">Wasserlevel</span>
+            <div class="progress-bar">
+              <div class="progress-fill water-fill" id="waterFill"></div>
+            </div>
+          </div>
+        </div>
+        <div class="status-item">
+          <span class="status-icon">🌿</span>
+          <div class="status-info">
+            <span class="status-label">Gesundheit</span>
+            <div class="progress-bar">
+              <div class="progress-fill health-fill" id="healthFill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="growth-stage" id="growthStage">
+        <span class="stage-emoji" id="stageEmoji">🌱</span>
+        <span class="stage-name" id="stageName">Setzling</span>
+      </div>
+    </div>
+ 
+    <!-- Message Box -->
+    <div class="message-box" id="messageBox">
+      <p id="messageText">Dein Bäumchen freut sich auf Wasser! 🌱</p>
+    </div>
+ 
+    <!-- Action Button -->
+    <div class="action-area">
+      <button class="water-btn" id="waterBtn" onclick="App.water()">
+        <span class="btn-icon">💧</span>
+        <span class="btn-text">Gießen</span>
+        <span class="btn-sub" id="waterBtnSub">Täglich möglich</span>
+      </button>
+    </div>
+ 
+    <!-- Next watering timer -->
+    <div class="next-water" id="nextWaterInfo"></div>
+ 
+  </div>
+ 
+  <!-- Death overlay -->
+  <div class="death-overlay" id="deathOverlay">
+    <div class="death-content">
+      <div class="death-emoji">🥀</div>
+      <h2>Dein Baum ist verdurstet...</h2>
+      <p>Er wurde 3 Tage lang nicht gegossen.</p>
+      <button class="restart-btn" onclick="App.restart()">Neu starten 🌱</button>
+    </div>
+  </div>
+ 
+  <!-- Watering animation overlay -->
+  <div class="watering-overlay" id="wateringOverlay">
+    <div class="watering-content">
+      <div class="watering-can">🪣</div>
+      <p>Gießen...</p>
+    </div>
+  </div>
+ 
+  <script src="App.js"></script>
+</body>
+</html>
 
