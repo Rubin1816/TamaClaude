@@ -1,1 +1,676 @@
+/* =============================================
+   MEIN BAUM — Style Sheet
+   ============================================= */
+ 
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
+:root {
+  --sky-top: #0a0e1a;
+  --sky-bottom: #1a1a4e;
+  --text-light: #f0f4e8;
+  --text-dim: #b8c4a0;
+  --panel-bg: rgba(10, 20, 8, 0.55);
+  --panel-border: rgba(100, 180, 80, 0.25);
+  --accent-green: #5bbd5b;
+  --accent-water: #4fc3f7;
+  --earth: #3d2008;
+  --font-display: 'Cabin', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+ 
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+ 
+body {
+  font-family: var(--font-body);
+  color: var(--text-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+ 
+/* =============================================
+   SKY BACKGROUND
+   ============================================= */
+ 
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+ 
+.sky-gradient {
+  position: absolute;
+  inset: 0;
+  transition: background 3s ease;
+}
+ 
+/* Celestial Body (Sun / Moon) */
+.celestial-body {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transition: left 2s ease, top 2s ease, background 3s ease, box-shadow 3s ease;
+  left: 50%;
+  top: 50%;
+}
+ 
+/* Stars */
+.stars {
+  position: absolute;
+  inset: 0;
+  transition: opacity 2s ease;
+}
+ 
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--twinkle-dur, 3s) ease-in-out infinite;
+  animation-delay: var(--twinkle-delay, 0s);
+}
+ 
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+ 
+/* Clouds */
+.clouds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+}
+ 
+.cloud {
+  position: absolute;
+  background: rgba(255,255,255,0.85);
+  border-radius: 50px;
+  animation: driftCloud linear infinite;
+}
+ 
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255,255,255,0.85);
+  border-radius: 50%;
+}
+ 
+.cloud-1 {
+  width: 120px; height: 36px;
+  top: 12%; left: -140px;
+  animation-duration: 60s;
+  animation-delay: -10s;
+}
+.cloud-1::before { width: 56px; height: 56px; top: -28px; left: 18px; }
+.cloud-1::after  { width: 40px; height: 40px; top: -20px; left: 60px; }
+ 
+.cloud-2 {
+  width: 90px; height: 28px;
+  top: 22%; left: -110px;
+  animation-duration: 80s;
+  animation-delay: -35s;
+  opacity: 0.7;
+}
+.cloud-2::before { width: 40px; height: 40px; top: -20px; left: 14px; }
+.cloud-2::after  { width: 32px; height: 32px; top: -14px; left: 44px; }
+ 
+.cloud-3 {
+  width: 150px; height: 42px;
+  top: 8%; left: -170px;
+  animation-duration: 100s;
+  animation-delay: -60s;
+  opacity: 0.5;
+}
+.cloud-3::before { width: 64px; height: 64px; top: -34px; left: 22px; }
+.cloud-3::after  { width: 48px; height: 48px; top: -24px; left: 76px; }
+ 
+@keyframes driftCloud {
+  from { left: -200px; }
+  to   { left: 110vw; }
+}
+ 
+/* Ground */
+.ground {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 1;
+  background: linear-gradient(to bottom, #2d5a1b 0%, #1e3d10 40%, #3d2008 100%);
+}
+ 
+.ground-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: linear-gradient(to right,
+    #3a7a1a, #4a9a22, #3a7a1a, #52a828, #3a7a1a, #4a9a22, #3a7a1a
+  );
+  border-radius: 40% 40% 0 0 / 60% 60% 0 0;
+}
+ 
+/* =============================================
+   APP LAYOUT
+   ============================================= */
+ 
+.app-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem 6rem;
+  gap: 0.5rem;
+}
+ 
+/* =============================================
+   HEADER
+   ============================================= */
+ 
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.2rem 0.5rem 0.5rem;
+}
+ 
+.app-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+ 
+.time-display {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  background: rgba(0,0,0,0.3);
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  letter-spacing: 0.08em;
+  min-width: 52px;
+  text-align: center;
+}
+ 
+.day-counter {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-green);
+  background: rgba(0,0,0,0.3);
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+ 
+/* =============================================
+   TREE SCENE
+   ============================================= */
+ 
+.tree-scene {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+ 
+.tree-svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+}
+ 
+/* Leaf sway animation */
+#canopyGroup {
+  transform-origin: 200px 360px;
+  animation: sway 6s ease-in-out infinite;
+}
+ 
+@keyframes sway {
+  0%, 100% { transform: rotate(-1deg); }
+  50%       { transform: rotate(1.2deg); }
+}
+ 
+/* Blossom gentle pulse */
+.blossom {
+  animation: blossomPulse 4s ease-in-out infinite;
+}
+ 
+.blossom:nth-child(2) { animation-delay: -1.3s; }
+.blossom:nth-child(3) { animation-delay: -2.6s; }
+.blossom:nth-child(4) { animation-delay: -0.7s; }
+.blossom:nth-child(5) { animation-delay: -3.1s; }
+ 
+@keyframes blossomPulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.07); }
+}
+ 
+/* Fruit dangle */
+.fruit {
+  animation: fruitDangle 5s ease-in-out infinite;
+}
+.fruit:nth-child(2) { animation-delay: -1.5s; }
+.fruit:nth-child(3) { animation-delay: -2.8s; }
+.fruit:nth-child(4) { animation-delay: -0.6s; }
+.fruit:nth-child(5) { animation-delay: -4s; }
+ 
+@keyframes fruitDangle {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(3px); }
+}
+ 
+/* Fallen petals */
+.fallen-petals {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  height: 30px;
+  pointer-events: none;
+}
+ 
+.fallen-petal {
+  position: absolute;
+  width: 10px;
+  height: 7px;
+  background: #ffb3c6;
+  border-radius: 50% 50% 50% 0;
+  opacity: 0.7;
+  animation: petalFall 8s ease-in infinite;
+}
+ 
+@keyframes petalFall {
+  0%   { transform: translateY(-300px) translateX(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(0) translateX(30px) rotate(180deg); opacity: 0; }
+}
+ 
+/* Water drops animation */
+.water-drop {
+  animation: dropFall 1.2s ease-in infinite;
+  opacity: 0;
+}
+.water-drop:nth-child(1) { animation-delay: 0s; }
+.water-drop:nth-child(2) { animation-delay: 0.3s; }
+.water-drop:nth-child(3) { animation-delay: 0.6s; }
+.water-drop:nth-child(4) { animation-delay: 0.9s; }
+ 
+@keyframes dropFall {
+  0%   { transform: translateY(-20px); opacity: 0; }
+  20%  { opacity: 0.9; }
+  80%  { opacity: 0.7; }
+  100% { transform: translateY(30px); opacity: 0; }
+}
+ 
+/* =============================================
+   STATUS PANEL
+   ============================================= */
+ 
+.status-panel {
+  width: 100%;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  padding: 1rem 1.2rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+ 
+.status-row {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+ 
+.status-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+ 
+.status-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+ 
+.status-info {
+  flex: 1;
+}
+ 
+.status-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+ 
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 10px;
+  overflow: hidden;
+}
+ 
+.progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.8s ease, background-color 0.5s ease;
+}
+ 
+.water-fill {
+  background: linear-gradient(to right, #29b6f6, #81d4fa);
+}
+ 
+.health-fill {
+  background: linear-gradient(to right, #66bb6a, #a5d6a7);
+}
+ 
+.growth-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+ 
+.stage-emoji {
+  font-size: 1.3rem;
+}
+ 
+.stage-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-green);
+  letter-spacing: 0.04em;
+}
+ 
+/* =============================================
+   MESSAGE BOX
+   ============================================= */
+ 
+.message-box {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 0.8rem 1.2rem;
+  text-align: center;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.message-box p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  transition: opacity 0.3s ease;
+}
+ 
+/* =============================================
+   ACTION AREA
+   ============================================= */
+ 
+.action-area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+ 
+.water-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  background: linear-gradient(135deg, #1565c0, #1976d2, #42a5f5);
+  border: none;
+  border-radius: 24px;
+  padding: 1rem 3rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.3s ease;
+  box-shadow: 0 4px 20px rgba(21,101,192,0.5);
+  position: relative;
+  overflow: hidden;
+}
+ 
+.water-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  border-radius: 24px;
+}
+ 
+.water-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(21,101,192,0.7);
+}
+ 
+.water-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+ 
+.water-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+ 
+.btn-icon {
+  font-size: 1.8rem;
+}
+ 
+.btn-text {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+ 
+.btn-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.04em;
+}
+ 
+/* =============================================
+   NEXT WATER INFO
+   ============================================= */
+ 
+.next-water {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: center;
+  min-height: 20px;
+  letter-spacing: 0.03em;
+}
+ 
+/* =============================================
+   DEATH OVERLAY
+   ============================================= */
+ 
+.death-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10, 5, 0, 0.88);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+}
+ 
+.death-overlay.visible {
+  display: flex;
+}
+ 
+.death-content {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  background: rgba(30, 10, 0, 0.8);
+  border: 1px solid rgba(150, 80, 30, 0.4);
+  border-radius: 24px;
+  max-width: 300px;
+  animation: fadeInUp 0.6s ease;
+}
+ 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+ 
+.death-emoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+ 
+.death-content h2 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: #e0c0a0;
+  margin-bottom: 0.6rem;
+}
+ 
+.death-content p {
+  font-size: 0.9rem;
+  color: rgba(200,160,120,0.75);
+  margin-bottom: 1.5rem;
+}
+ 
+.restart-btn {
+  background: linear-gradient(135deg, #2d6a2d, #4caf50);
+  border: none;
+  border-radius: 16px;
+  padding: 0.8rem 2rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(76,175,80,0.4);
+}
+ 
+.restart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(76,175,80,0.6);
+}
+ 
+/* =============================================
+   WATERING OVERLAY
+   ============================================= */
+ 
+.watering-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 20, 40, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+ 
+.watering-overlay.visible {
+  display: flex;
+}
+ 
+.watering-content {
+  text-align: center;
+  animation: wateringBounce 0.5s ease-in-out infinite alternate;
+}
+ 
+.watering-can {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+ 
+.watering-content p {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: #90caf9;
+  font-weight: 600;
+}
+ 
+@keyframes wateringBounce {
+  from { transform: rotate(-10deg) translateY(0); }
+  to   { transform: rotate(10deg) translateY(-8px); }
+}
+ 
+/* =============================================
+   TRANSITION EFFECTS
+   ============================================= */
+ 
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+ 
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+ 
+/* Health-based color shifts */
+body.low-health .health-fill {
+  background: linear-gradient(to right, #ef5350, #ef9a9a);
+}
+ 
+body.critical-health .health-fill {
+  background: linear-gradient(to right, #b71c1c, #e57373);
+  animation: healthPulse 1s ease-in-out infinite;
+}
+ 
+@keyframes healthPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+ 
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+ 
+@media (max-width: 380px) {
+  .app-title { font-size: 1.3rem; }
+  .water-btn { padding: 0.8rem 2rem; }
+  .btn-icon  { font-size: 1.5rem; }
+}
+ 
+@media (min-height: 800px) {
+  .tree-scene { margin-top: 0.5rem; }
+}
 
